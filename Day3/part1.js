@@ -45,7 +45,7 @@ for (let i = 0; i < numArr.length; i++) {
   }  
 }
 const finalArr = [];
-console.log(newNumArr);
+
 for (let i = 0; i < test.length; i++) {
   const bool = test[i].some(x => {
     if (arrData?.[x[0] -1 ]?.[x[1]]?.match(/[\*=@&\/#%\+\$-]/) !== null && arrData?.[x[0] -1 ]?.[x[1]] !== undefined){
@@ -90,7 +90,6 @@ console.log(arrData[0 + 1][28]);
 const nums = [];
 finalArr.map(x => {
   const arr = [];
-  const newArr = [];
   x.map(j => {
     arr.push(j[2]);
   })
