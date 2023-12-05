@@ -85,7 +85,7 @@ for (let i = 0; i < test.length; i++) {
     finalArr.push(test[i]);
   }
 }
-console.log(finalArr);
+console.log(test);
 console.log(arrData[0 + 1][28]);
 const nums = [];
 finalArr.map(x => {
@@ -101,7 +101,7 @@ finalArr.map(x => {
   num = parseInt(num);
   nums.push(num);
 });
-console.log(util.inspect(nums, { maxArrayLength: null }));
+//console.log(util.inspect(nums, { maxArrayLength: null }));
 const output = nums.reduce((acc, x) => {
   return acc + x
 },0)
