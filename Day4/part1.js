@@ -27,7 +27,6 @@ const gameScores = arrData.map(x => {
   let score = 0;
   for (let i = 0; i < matches.length; i++) {
     if (typeof matches[i] === 'string') {
-        let num = parseInt(matches[i]);
         if (i >= 1) {
           score = score * 2;
         } else score++;
