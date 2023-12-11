@@ -18,7 +18,7 @@ const arrData = (() => {
       case 'T':
         return '10';
       case 'J':
-        return '11'
+        return '1'
       case 'Q':
         return '12';
       case 'K':
@@ -32,11 +32,10 @@ const arrData = (() => {
     return x;
   });
 })();
-//console.log(arrData);
+
 
 
 function handType(hand) {
-  let count = 0;
   const arr = [];
   const newHand = [...hand];
   //sort cards highest to lowest
@@ -50,6 +49,10 @@ function handType(hand) {
     else return 0
   })
 
+  
+
+
+
 
 
   //store all matches in their own array
@@ -58,7 +61,23 @@ function handType(hand) {
       arr.push([newHand[i]]);
     } else arr[arr.length - 1].push(newHand[i]);
   }
- 
+
+
+  //add jokers to array with most matches
+  if (arr[arr.length - 1][0] === '1' && arr[0].length < 5) {
+    let highestIndex = 0;
+    arr.reduce((acc, x, index) => {
+      if (acc < x.length && index < arr.length - 1) {
+        acc = x.length;
+        highestIndex = index
+        return acc;
+
+      }
+      return acc;
+    },0);
+      arr[highestIndex] = arr[highestIndex].concat([...arr[arr.length - 1]]);
+      arr.pop();
+  }
   
 
   //return type of hand
@@ -82,7 +101,7 @@ function handType(hand) {
 function handComparison(firstHand, secondHand) {
   const handTypeOne = handType(firstHand);
   const handTypeTwo = handType(secondHand);
-  console.log(firstHand);
+
   if (handTypeOne > handTypeTwo) {
     return 1;
   } else if (handTypeOne < handTypeTwo) {
@@ -102,6 +121,7 @@ function handComparison(firstHand, secondHand) {
 const sortedHands = arrData.sort((a, b) => {
   return handComparison(a[0], b[0]);
 });
+console.log(sortedHands);
 const output = sortedHands.reduce((acc, x, index) => {
   acc += (index + 1) * x[1];
   return acc;
