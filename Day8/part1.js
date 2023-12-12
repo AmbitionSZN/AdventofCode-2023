@@ -54,7 +54,6 @@ function networkNavigator(instructions, network) {
       return (nextNode === x[0]);
     });
     node = network[index];
-    console.log(node);
   }
   return count;
 }
