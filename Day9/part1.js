@@ -21,71 +21,34 @@ const arrData = (() => {
 
 
 
-function predictor (history, pred) {
-  const newArr = [...history];
-  const arr = [];
-  const predicted = [pred]
-  if (predicted[0] === undefined) {
-    predicted[0] = [...history];
+function predictor (history) {
+  const arr = [history];
+  while (!arr[arr.length - 1].every(x => x === 0)){
+    const newArr = [];
+    const lastIndex = arr[arr.length - 1];
+    for (let i = 0; i < lastIndex.length - 1; i++) {
+      newArr.push(lastIndex[i + 1] - lastIndex[i]);
+    }
+    arr.push(newArr);
   }
-  for (let i = 0; i < newArr.length - 1; i++) {
-    arr.push(newArr[i] - newArr[i + 1]);
-  }
-  test.push(arr);
-  predicted.push(arr);
-
-  if (arr.every(x => x === 0)) {
-    return predicted;
-  }
-
-  return predictor(arr, predicted);
+  return arr;
 }
 
-const output = arrData.map(x => {
-  const test = [];
-  function predictor (history, pred) {
-    const newArr = [...history];
-    const arr = [];
-    const predicted = [pred]
-    if (predicted[0] === undefined) {
-      predicted[0] = [...history];
-    }
-    for (let i = 0; i < newArr.length - 1; i++) {
-      arr.push(newArr[i + 1] - newArr[i]);
-    }
-    test.push(arr);
-    predicted.push(arr);
-  
-    if (arr.every(x => x === 0)) {
-      return predicted;
-    }
-    return predictor(arr, predicted);
-  }
-  
-  predictor(x);
-  //console.log(test);
-  test.reverse();
-  const vals = []
-  const extrapolated = test.reduce((acc, y) => {
-    acc = acc + y[y.length - 1];
-    vals.push(acc);
-
+const test = arrData.map(x => {
+  const vals =  predictor(x);
+  vals.reverse();
+  return vals.reduce((acc, x) => {
+    acc = acc + x[x.length - 1];
     return acc;
-  },0)
-  return vals;
-})
-
+  },0);
+  
+},0);
+const output = test.reduce((acc, x) => {
+  acc = acc + x;
+  return acc;
+},0);
 console.log(output);
-const final = output.map(x => {
-  return x.reduce((acc, y) => {
-    return acc += acc + y
-  },0)
-})
-const finalFinal = final.reduce((acc, x) => {
-  return acc += x;
-},0)
 
-console.log(finalFinal);
 
 
 
