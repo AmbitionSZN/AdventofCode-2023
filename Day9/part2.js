@@ -38,7 +38,7 @@ const extrapolatedValues = arrData.map(x => {
   const vals = predictor(x);
   vals.reverse();
   return vals.reduce((acc, x) => {
-    acc = acc + x[x.length - 1];
+    acc = x[0] - acc;
     return acc;
   },0);
   
