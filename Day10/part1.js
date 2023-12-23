@@ -32,8 +32,8 @@ function findLoop(startPosition) {
     const pipe = grid[y][x];
     let count = 0;
     let bool = false;
-    const yPlusOne = grid[y + 1][x] === '|' || grid[y + 1][x] === '7' || grid[y + 1][x] === 'F';
-    const yMinusOne = grid[y - 1][x] === '|' || grid[y - 1][x] === 'L' || grid[y - 1][x] === 'J';
+    const yPlusOne = grid[y - 1][x] === '|' || grid[y - 1][x] === '7' || grid[y - 1][x] === 'F';
+    const yMinusOne = grid[y + 1][x] === '|' || grid[y + 1][x] === 'L' || grid[y + 1][x] === 'J';
     const xPlusOne = grid[y][x + 1] === '-' || grid[y][x + 1] === '7' || grid[y][x + 1] === 'J';
     const xMinusOne = grid[y][x - 1] === '-' || grid[y][x - 1] === 'L' || grid[y][x - 1] === 'F';
 
@@ -42,7 +42,7 @@ function findLoop(startPosition) {
         if (yPlusOne || yMinusOne) {
           count++;
         }
-        if (grid[y + 1][x] === 'S' || grid[y - 1][x] === 'S') {
+        if (grid[y - 1][x] === 'S' || grid[y - 1][x] === 'S') {
           bool = true;
         }
         break;
@@ -50,7 +50,7 @@ function findLoop(startPosition) {
         if (yPlusOne || xPlusOne) {
           count++;
         }
-        if (grid[y + 1][x] === 'S' || grid[y][x + 1] === 'S') {
+        if (grid[y - 1][x] === 'S' || grid[y][x + 1] === 'S') {
           bool = true;
         }
         break;
@@ -58,7 +58,7 @@ function findLoop(startPosition) {
         if (yPlusOne || xMinusOne) {
           count++;
         }
-        if (grid[y + 1][x] === 'S' || grid[y][x - 1] === 'S') {
+        if (grid[y - 1][x] === 'S' || grid[y][x - 1] === 'S') {
           bool = true;
         }
         break;
@@ -87,7 +87,7 @@ function findLoop(startPosition) {
         }
         break;
     }
-    console.log(bool);
+
     return (bool === true && count > 0);
   }
   if (checkPipeConnections([startPosition[0] + 1, startPosition[1]])) {
