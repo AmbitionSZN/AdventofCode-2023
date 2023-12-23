@@ -112,32 +112,47 @@ function pipes(coords, prevCoords)  {
   
   switch (pipe) {
     case '|':
-      if (JSON.stringify(prevCoords) === JSON.stringify([y + 1, x])) {
-        const nextCoord = [y - 1, x];
+      if (JSON.stringify(prevCoords) === JSON.stringify([y - 1, x])) {
+        const nextCoord = [y + 1, x];
         return nextCoord;
       }
-      else return [y + 1, x];
+      else return [y - 1, x];
     case '-':
       if (JSON.stringify(prevCoords) === JSON.stringify([y, x - 1])) {
         return [y, x + 1];
       } else return [y, x - 1];
     case 'L':
-      if (JSON.stringify(prevCoords) === JSON.stringify([y + 1, x])) {
+      if (JSON.stringify(prevCoords) === JSON.stringify([y - 1, x])) {
         return [y, x + 1];
-      } else return [y + 1, x];
+      } else return [y - 1, x];
     case 'J':
-      if (JSON.stringify(prevCoords) === JSON.stringify([y + 1, x])) {
-        return [y, x - 1];
-      } else return [y + 1, x];
-    case '7':
       if (JSON.stringify(prevCoords) === JSON.stringify([y - 1, x])) {
         return [y, x - 1];
       } else return [y - 1, x];
+    case '7':
+      if (JSON.stringify(prevCoords) === JSON.stringify([y + 1, x])) {
+        return [y, x - 1];
+      } else return [y + 1, x];
     case 'F':
-      if (JSON.stringify(prevCoords) === JSON.stringify([y - 1, x])) {
+      if (JSON.stringify(prevCoords) === JSON.stringify([y + 1, x])) {
         return [y, x + 1];
-      } else return [y - 1, x];      
+      } else return [y + 1, x];      
   }
 }
 
-console.log(findLoop(startPosition));
+const connectedPipes = (findLoop(startPosition));
+let prevCoordinates = []
+let coords = connectedPipes[0];
+let count = 0;
+
+while (grid[coords[0]][coords[1]] !== 'S') {
+  count++;
+  let temp = coords;
+  if (prevCoordinates.length === 0) {
+    prevCoordinates = startPosition;
+  }
+  coords = pipes(coords, prevCoordinates);
+  prevCoordinates = temp;
+}
+output = (count + 1) / 2;
+console.log(output);
