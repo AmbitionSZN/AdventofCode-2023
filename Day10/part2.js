@@ -118,30 +118,30 @@ function pipes(coords, prevCoords)  {
   switch (pipe) {
     case '|':
       if (JSON.stringify(newPrevCoords) === JSON.stringify([y - 1, x])) {
-        const nextCoord = [y + 1, x, 'down'];
+        const nextCoord = [y + 1, x];
         return nextCoord;
       }
-      else return [y - 1, x, 'up'];
+      else return [y - 1, x];
     case '-':
       if (JSON.stringify(newPrevCoords) === JSON.stringify([y, x - 1])) {
-        return [y, x + 1, 'right'];
-      } else return [y, x - 1, 'left'];
+        return [y, x + 1];
+      } else return [y, x - 1];
     case 'L':
       if (JSON.stringify(newPrevCoords) === JSON.stringify([y - 1, x])) {
-        return [y, x + 1];
-      } else return [y - 1, x];
+        return [y, x + 1, 'right'];
+      } else return [y - 1, x, 'up'];
     case 'J':
       if (JSON.stringify(newPrevCoords) === JSON.stringify([y - 1, x])) {
-        return [y, x - 1];
-      } else return [y - 1, x];
+        return [y, x - 1, 'left'];
+      } else return [y - 1, x, 'up'];
     case '7':
       if (JSON.stringify(newPrevCoords) === JSON.stringify([y + 1, x])) {
-        return [y, x - 1];
-      } else return [y + 1, x];
+        return [y, x - 1, 'left'];
+      } else return [y + 1, x, 'down'];
     case 'F':
       if (JSON.stringify(newPrevCoords) === JSON.stringify([y + 1, x])) {
-        return [y, x + 1];
-      } else return [y + 1, x];      
+        return [y, x + 1, 'right'];
+      } else return [y + 1, x, 'down'];      
   }
 }
 
@@ -165,21 +165,25 @@ output = (count + 1) / 2;
 console.log(loopCoords)
 function checkDirection(arr, direction) {
   const newArr = [...arr]
-  const expression = loopCoords.find(x => {
-    return JSON.stringify(newArr) === JSON.stringify(x)
-  })
+ 
   
     switch (direction) {
     case 'left':
       newArr[1] = newArr[1] - 1;
-
+      break;
     case 'right':
-      return newArr[1] = newArr[1] + 1
+      newArr[1] = newArr[1] + 1;
+      break;
     case 'up':
-      return newArr[0] = newArr[0] - 1
+      newArr[0] = newArr[0] - 1;
+      break;
     case 'down':
-      return newArr[0] = newArr[0] + 1
+      newArr[0] = newArr[0] + 1;
+      break;
   }
+  const expression = loopCoords.find(x => {
+    return JSON.stringify(newArr) === JSON.stringify(x)
+  })
 
   if (expression !== undefined) {
     return false
@@ -197,7 +201,8 @@ for (let i = 0; i < loopCoords.length; i++) {
   }
 
 }
-console.log(finalArr);
+const nextArr = finalArr.filter(x => x[2] !== undefined);
+
 
 
 
